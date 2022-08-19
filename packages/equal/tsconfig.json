@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": "./",
+    "rootDir": "./src",
+    "outDir": "./lib",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "declaration": true,
+    "declarationDir": "./lib/types",
+    "declarationMap": true,
+    "stripInternal": true,
+    "noUncheckedIndexedAccess": true
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}

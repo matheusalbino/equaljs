@@ -1,0 +1,36 @@
+{
+  "name": "@equal/equaljs",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "types": "./lib/types/index.d.ts",
+  "module": "./lib/esm/index.js",
+  "main": "./lib/cjs/index.js",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "import": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.js"
+    },
+    "./jsx-runtime": {
+      "types": "./lib/types/jsx-runtime.d.ts",
+      "import": "./lib/esm/jsx-runtime.js",
+      "require": "./lib/cjs/jsx-runtime.js"
+    },
+    "./jsx-dev-runtime": {
+      "types": "./lib/types/jsx-dev-runtime.d.ts",
+      "import": "./lib/esm/jsx-dev-runtime.js",
+      "require": "./lib/cjs/jsx-dev-runtime.js"
+    }
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c -w"
+  },
+  "files": [
+    "lib",
+    "jsx-runtime.d.ts",
+    "jsx-dev-runtime.d.ts"
+  ]
+}

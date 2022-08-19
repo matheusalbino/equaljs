@@ -1,0 +1,19 @@
+{
+  "name": "dom",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c -w"
+  },
+  "dependencies": {
+    "@equal/equaljs": "workspace:*"
+  },
+  "devDependencies": {
+    "postcss": "^8.4.16",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-serve": "^2.0.1"
+  }
+}

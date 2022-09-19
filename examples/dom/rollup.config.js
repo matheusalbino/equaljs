@@ -28,9 +28,7 @@ export default defineConfig({
       },
     }),
     commonjs(),
-    nodeResolve({
-      preferBuiltins: true,
-    }),
+    nodeResolve({ browser: true, preferBuiltins: true }),
     postcss(),
     typescript(),
     copy({

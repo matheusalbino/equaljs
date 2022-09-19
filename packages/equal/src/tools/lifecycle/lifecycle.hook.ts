@@ -1,5 +1,6 @@
 import type { Ref } from '../../core';
 import { isFunction, isValidNode } from '../../core/helpers';
+import { Renderer } from '../../dom';
 
 export function onMount(ref: Ref<JSX.Element>, listener: () => void | (() => void)): void {
   let prevListener: () => void | undefined;
@@ -8,18 +9,18 @@ export function onMount(ref: Ref<JSX.Element>, listener: () => void | (() => voi
     console.assert(isValidNode(next), 'The reference is not a valid node');
 
     if (prev !== undefined) {
-      prev.removeEventListener('mount', prevListener);
+      Renderer.removeEventListener(prev, 'mount', prevListener);
     }
 
     prevListener = () => {
       const destroy = listener();
 
       if (isFunction(destroy)) {
-        next.addEventListener('unmount', destroy, { once: true });
+        Renderer.addEventListener(next, 'unmount', destroy, { once: true });
       }
     };
 
-    next.addEventListener('mount', prevListener, {
+    Renderer.addEventListener(next, 'mount', prevListener, {
       once: true,
     });
   });
@@ -32,11 +33,12 @@ export function onUnmount(ref: Ref<JSX.Element>, listener: () => void): void {
     console.assert(isValidNode(next), 'The reference is not a valid node');
 
     if (prev !== undefined) {
-      prev.removeEventListener('unmount', prevListener);
+      Renderer.removeEventListener(prev, 'unmount', prevListener);
     }
 
     prevListener = listener;
-    next.addEventListener('unmount', prevListener, {
+
+    Renderer.addEventListener(next, 'unmount', prevListener, {
       once: true,
     });
   });

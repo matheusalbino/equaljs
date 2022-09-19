@@ -1,13 +1,10 @@
-import { appendChild, updateChildren } from '../element/element.helper';
 import { $TYPEOF_ROOT, type Root } from './root.type';
-import { type EqualElement } from '../element';
+import { internal_appendChild, internal_updateChildren } from '../helpers';
+import type { EqualElement } from '../element';
+import type { Renderer } from '../renderer';
 
-export function createRoot(id: string = 'root'): Root {
-  const container = document.createElement('div');
-
-  container.id = id;
-
-  document.body.appendChild(container);
+export function createRoot(renderer: Renderer<any>, container: EqualElement): Root {
+  container.$config = { children: [] };
 
   const root: Root = {
     $typeof: $TYPEOF_ROOT,
@@ -17,16 +14,16 @@ export function createRoot(id: string = 'root'): Root {
 
       if (Array.isArray(element)) {
         for (const child of element) {
-          appendChild(root, child);
+          internal_appendChild(renderer, root, child);
         }
 
         return;
       }
 
-      appendChild(root, element);
+      internal_appendChild(renderer, root, element);
     },
     unmount() {
-      updateChildren(root, []);
+      internal_updateChildren(renderer, root, []);
     },
   };
 

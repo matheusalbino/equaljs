@@ -29,7 +29,7 @@
     "watch": "rollup -c -w"
   },
   "files": [
-    "lib",
+    "lib/**/*",
     "jsx-runtime.d.ts",
     "jsx-dev-runtime.d.ts"
   ]

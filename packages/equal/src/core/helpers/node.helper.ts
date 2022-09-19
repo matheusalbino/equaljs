@@ -1,11 +1,10 @@
 import { isElement } from './element.helper';
 import { isRef } from './ref.helper';
 import { isRoot } from './root.helper';
-import type { EqualElement } from '../element';
-import type { Ref } from '../ref';
+import type { EqualNode } from '../element';
 import type { Root } from '../root';
 
-export function isValidNode(value: unknown): value is EqualElement | Ref<EqualElement> | Root {
+export function isValidNode(value: unknown): value is EqualNode | Root {
   if (Array.isArray(value)) {
     return value.every(isValidNode);
   }

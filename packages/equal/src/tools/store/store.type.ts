@@ -1,12 +1,12 @@
 export interface StoreValue<T = any> {
   /**
-   * @core
+   * @internal
    */
   readonly $typeof: symbol;
 
   readonly value: T;
   /**
-   * @core
+   * @internal
    */
   subscribe(fn: StoreSubscribe<T>): void;
 }

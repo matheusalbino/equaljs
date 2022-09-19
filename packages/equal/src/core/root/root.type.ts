@@ -7,11 +7,11 @@ export const $TYPEOF_ROOT = Symbol.for('equal.root');
 
 export interface Root {
   /**
-   * @core
+   * @internal
    */
   readonly $typeof: symbol;
   /**
-   * @core
+   * @internal
    */
   readonly target: EqualElement;
   render(element: JSX.Element): void;

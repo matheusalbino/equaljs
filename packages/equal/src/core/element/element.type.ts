@@ -10,26 +10,22 @@ export type JSXElementConstructor<P = {}> = (
   ref?: Ref,
 ) => EqualElement<any, any> | null | undefined;
 
-export type Key = string | number;
-
-export interface Attributes {
-  // key?: Key | undefined;
-}
+export interface Attributes {}
 
 export interface EqualElement<
   P = any,
   T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>,
-> extends DOMElement {
+> {
   /**
-   * @core
+   * @internal
    */
   $typeof: symbol;
   /**
-   * @core
+   * @internal
    */
   $config: ElementConfig;
   /**
-   * @core
+   * @internal
    */
   $events: Record<string, EventListener>;
   // key: Key | undefined;
@@ -37,43 +33,28 @@ export interface EqualElement<
   props: P;
 }
 
-interface DOMElement {
-  // Props
-  attributes: NamedNodeMap;
-  nodeType: number;
-  textContent: string;
-  children: EqualElement[];
-  classList: DOMTokenList;
+/**
+ * @internal
+ */
+export type ElementConfig = (
+  | Omit<ViewProps, 'children'>
+  | Omit<TextProps, 'children'>
+  | ImageProps
+) & {
+  children?: EqualNode[];
+};
 
-  // Methods
-  isEqualNode(otherNode: EqualElement | null): boolean;
-  isSameNode(otherNode: EqualElement | null): boolean;
-  appendChild(node: EqualElement): void;
-  removeChild(child: EqualElement): void;
-  replaceWith(...nodes: (EqualElement | string)[]): void;
-  replaceChild(node: EqualElement, child: EqualElement): void;
-  replaceChildren(...nodes: (EqualElement | string)[]): void;
-  setAttribute(name: string, value: string): void;
-  hasAttribute(name: string): boolean;
-  removeAttribute(name: string): void;
-  addEventListener(
-    type: string,
-    listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions,
-  ): void;
-  removeEventListener(
-    type: string,
-    listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions,
-  ): void;
-  dispatchEvent(event: Event): boolean;
-}
-
-export type ElementConfig = BaseProps | ViewProps | TextProps | ImageProps;
+/**
+ * @internal
+ */
+export type ElementProps =
+  | Omit<ViewProps, 'as' | 'ref' | 'children'>
+  | Omit<TextProps, 'as' | 'ref' | 'children'>
+  | Omit<ImageProps, 'as' | 'ref'>;
 
 export interface BaseProps {
+  id?: string;
   ref?: Ref;
-  // key?: Key;
   as?: string;
   style?: string;
   class?: string;
@@ -100,4 +81,12 @@ export interface ImageProps extends BaseProps {
 
 export type EqualFragment = Iterable<EqualNode>;
 
-export type EqualNode = EqualElement | string | number | EqualFragment | boolean | null | undefined;
+export type EqualNode =
+  | EqualElement
+  | Ref<EqualElement>
+  | string
+  | number
+  | EqualFragment
+  | boolean
+  | null
+  | undefined;

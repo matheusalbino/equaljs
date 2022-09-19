@@ -7,16 +7,12 @@ export default defineConfig({
   input: ['src/index.ts', 'src/jsx-runtime.ts', 'src/jsx-dev-runtime.ts'],
   output: [
     {
-      strict: false,
-      esModule: true,
       sourcemap: true,
       dir: 'lib/esm',
       format: 'esm',
       chunkFileNames: '[name].js',
     },
     {
-      strict: false,
-      esModule: false,
       sourcemap: true,
       dir: 'lib/cjs',
       format: 'cjs',
@@ -25,11 +21,7 @@ export default defineConfig({
   ],
   plugins: [
     commonjs(),
-    nodeResolve({
-      preferBuiltins: true,
-    }),
-    typescript({
-      useTsconfigDeclarationDir: true,
-    }),
+    nodeResolve({ browser: true, preferBuiltins: true }),
+    typescript({ useTsconfigDeclarationDir: true }),
   ],
 });

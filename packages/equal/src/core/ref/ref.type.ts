@@ -5,15 +5,12 @@ export const $TYPEOF_REF = Symbol.for('equal.ref');
 
 export interface Ref<T = any> {
   /**
-   * @core
+   * @internal
    */
   readonly $typeof: symbol;
-  /**
-   * @core
-   */
   target: T;
   /**
-   * @core
+   * @internal
    */
   subscribe(fn: (prev: T, next: T) => void): void;
 }

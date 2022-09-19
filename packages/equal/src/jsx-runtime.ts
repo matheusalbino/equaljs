@@ -1,7 +1,6 @@
-import type { ElementConfig, JSXElementConstructor, Key } from './core';
+import type { JSXElementConstructor } from './core';
 import { EQUAL_FRAGMENT_TYPE } from './core/fragment';
-import { createElement } from './core/element/create-element';
-import { createFragment } from './core/fragment/create-fragment';
+import { Renderer } from './dom';
 
 export * from './jsx.type';
 
@@ -15,17 +14,17 @@ export function jsx(
 
   if (typeof type === 'symbol') {
     if (type === EQUAL_FRAGMENT_TYPE) {
-      return createFragment(getChildren(children));
+      return Renderer.createFragment(getChildren(children));
     }
 
     return;
   }
 
   if (props.as !== undefined) {
-    return createElement(props.as, props, getChildren(children));
+    return Renderer.createElement(props.as, props, getChildren(children));
   }
 
-  return createElement(type, props, getChildren(children));
+  return Renderer.createElement(type, props, getChildren(children));
 }
 
 export function jsxs(
@@ -36,17 +35,17 @@ export function jsxs(
 
   if (typeof type === 'symbol') {
     if (type === EQUAL_FRAGMENT_TYPE) {
-      return createFragment(getChildren(children));
+      return Renderer.createFragment(getChildren(children));
     }
 
     return;
   }
 
   if (props.as !== undefined) {
-    return createElement(props.as, props, getChildren(children));
+    return Renderer.createElement(props.as, props, getChildren(children));
   }
 
-  return createElement(type, props, getChildren(children));
+  return Renderer.createElement(type, props, getChildren(children));
 }
 
 function getChildren(value: unknown): any[] {
